@@ -1,0 +1,4 @@
+.stream
+*.pyc
+__pycache__
+*.swp
