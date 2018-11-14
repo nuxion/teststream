@@ -1,0 +1,23 @@
+{
+  "name": "teststream",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuxion/teststream.git"
+  },
+  "author": "Xavier Petit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nuxion/teststream/issues"
+  },
+  "homepage": "https://github.com/nuxion/teststream#readme",
+  "dependencies": {
+    "cron-parser": "^2.7.1",
+    "ioredis": "^4.2.0"
+  }
+}
