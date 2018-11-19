@@ -1,6 +1,8 @@
 ---
 version: 0.1
-stream_server: redis-stream
+stream_server: 
+    host: 'redis-stream'
+    port: 6379
 shard: 1
 tasks:
     - task:
