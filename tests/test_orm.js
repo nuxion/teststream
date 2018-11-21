@@ -1,7 +1,7 @@
 var should = require('chai').should();
 var expect = require('chai').expect;
 const Redis = require('ioredis');
-const ORMRed = require('../ormred').ORMRed;
+const ORMRed = require('../lib/ormred').ORMRed;
 
 
 
@@ -16,7 +16,7 @@ describe('ORMRed', function(){
     /*before(async ()=> {
     });*/
     after(async ()=>{
-        await redis.flushall();
+        //await redis.flushall();
         redis.quit();
     });
 

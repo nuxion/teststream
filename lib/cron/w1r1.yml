@@ -9,12 +9,15 @@ tasks:
         id: 1
         when: '* * * * * *'
         owner: 'crawler'
+        stream: 'stream'
     - task:
         id: 2
         when: '*/2 * * * * *'
         owner: 'test'
+        stream: 'stream'
     - task:
         id: 3
         when: '5 5 22 * * *'
         owner: 'crawler'
         params: 'pagina12'
+        stream: 'stream'
