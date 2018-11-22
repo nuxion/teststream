@@ -50,7 +50,7 @@ describe('ORMRed', function(){
         })
 
     })
-    describe('Testing Set Type', async function(){
+    /*describe('Testing Set Type', async function(){
 
         setData = {key: 'testset',
                     type: 'set'}
@@ -63,5 +63,5 @@ describe('ORMRed', function(){
         await setorm.exec.insert('test');
         result = await redis.get('testset');
         expect(result).to.equal('test');
-    })
+    })*/
 })
