@@ -1,15 +1,12 @@
-var should = require('chai').should();
-var expect = require('chai').expect;
+const expect = require('chai').expect;
 const Redis = require('ioredis');
 const ORMRed = require('../lib/ormred').ORMRed;
-
-
 
 describe('ORMRed', function(){
 
 
-    redis = new Redis({ host: 'redis-stream' }); 
-    task = { index: 'tids:1', 
+    const redis = new Redis({ host: 'redis-stream' }); 
+    const task = { index: 'tids:1', 
         prefix: 'tid:', 
         type: 'hash', 
          fields: { when: 'w', owner: 'o' }};
@@ -44,8 +41,10 @@ describe('ORMRed', function(){
         it('can delete a task', async function(){
             await tasks.exec.insert(99, ['test', 'w']);
             await tasks.exec.delete(99);
-            result = await redis.hgetall('tid:99')
-            expect(result).to.not.include({test: 'w'});
+            resultHash = await redis.hgetall('tid:99')
+            resultSet = await redis.smembers('tids:1')
+            expect(resultHash).to.not.include({test: 'w'});
+            expect(resultSet.length).to.be.equal(0);
             
         })
 
