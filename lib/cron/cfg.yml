@@ -1,0 +1,23 @@
+---
+version: 0.1
+stream_server: 
+    host: 'redis-stream'
+    port: 6379
+shard: 1
+tasks:
+    - task:
+        id: 1
+        when: '* * * * * *'
+        owner: 'crawler'
+        stream: 'stream'
+    - task:
+        id: 2
+        when: '*/2 * * * * *'
+        owner: 'test'
+        stream: 'stream'
+    - task:
+        id: 3
+        when: '5 5 22 * * *'
+        owner: 'crawler'
+        params: 'pagina12'
+        stream: 'stream'

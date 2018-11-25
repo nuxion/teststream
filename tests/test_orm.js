@@ -13,7 +13,7 @@ describe('ORMRed', function(){
     /*before(async ()=> {
     });*/
     after(async ()=>{
-        //await redis.flushall();
+        await redis.flushall();
         redis.quit();
     });
 
