@@ -10,13 +10,14 @@ describe('ORMRed', function(){
         prefix: 'tid:', 
         type: 'hash', 
          fields: { when: 'w', owner: 'o' }};
-    /*before(async ()=> {
-    });*/
-    after(async ()=>{
-        await redis.flushall();
-        redis.quit();
+    before(async ()=> {
+      redis.flushall();
     });
-
+    afterEach(async ()=>{
+        await redis.flushall();
+    });
+    after(() => redis.quit());
+        
     describe('General', function(){
         it('should will be ok properties', function(){
             tasks = new ORMRed(redis, task );
