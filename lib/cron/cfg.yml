@@ -7,7 +7,7 @@ shard: 1
 tasks:
     - task:
         id: 1
-        when: '* * * * * *'
+        when: '*/2 * * * * *'
         owner: 'crawler'
         stream: 'stream'
     - task:
