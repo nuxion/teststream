@@ -1,7 +1,11 @@
-Cron class
-**********
+Croner Class
+************
 
-wrapper de cron-parser
+This is the main class.
 
-.. js:autofunction:: Config
 
+API doc of Cron
+=================
+
+.. js:autoclass:: Croner
+   :members:
