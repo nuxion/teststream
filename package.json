@@ -20,13 +20,15 @@
     "cron-parser": "^2.7.1",
     "eslint-config-airbnb": "^17.1.0",
     "ioredis": "^4.2.0",
-    "js-yaml": "^3.12.0"
+    "js-yaml": "^3.12.0",
+    "moment-timezone": "^0.5.23"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "sinon": "^7.1.1"
   }
 }
