@@ -4,52 +4,72 @@ const ORMRed = require('../lib/ormred').ORMRed;
 
 describe('ORMRed', function(){
 
-
-    const redis = new Redis({ host: 'redis-stream' }); 
-    const task = { index: 'tids:1', 
-        prefix: 'tid:', 
-        type: 'hash', 
-         fields: { when: 'w', owner: 'o' }};
-    before(async ()=> {
-      redis.flushall();
-    });
-    afterEach(async ()=>{
-        await redis.flushall();
-    });
-    after(() => redis.quit());
-        
-    describe('General', function(){
-        it('should will be ok properties', function(){
-            tasks = new ORMRed(redis, task );
-            expect(tasks).to.not.be.null;
-        })
-    });
-    describe('Testing Hash Type', async function(){
-        
-        tasks = new ORMRed(redis, task);
-
-        it('can add a task', async function(){
-            await tasks.exec.insert(99, ['test', 'w']);
-            result = await redis.hgetall('tid:99')
-            expect(result['test']).to.be.a('string');
-            expect(result['test']).to.equal('w');
-        })
-        it('can select a task', async function(){
-            await tasks.exec.select(99);
-            expect(result['test']).to.be.a('string');
-            expect(result['test']).to.equal('w');
-        })
-        it('can delete a task', async function(){
-            await tasks.exec.insert(99, ['test', 'w']);
-            await tasks.exec.delete(99);
-            resultHash = await redis.hgetall('tid:99')
-            resultSet = await redis.smembers('tids:1')
-            expect(resultHash).to.not.include({test: 'w'});
-            expect(resultSet.length).to.be.equal(0);
-            
-        })
-
+  const redis = new Redis({ host: 'redis-stream' }); 
+  const task = { index: 'tids:1', 
+      prefix: 'tid:', 
+      type: 'hash', 
+       fields: { when: 'w', owner: 'o' }};
+  before(async ()=> {
+    //redis.flushall();
+  });
+  afterEach(async ()=>{
+      //await redis.flushall();
+  });
+  after(() => redis.quit());
+      
+  describe('General', function(){
+    it('should will be ok properties', function(){
+      tasks = new ORMRed(redis, task );
+      expect(tasks).to.not.be.null;
     })
+  });
+  describe('Testing Hash Type', async function(){
+    tasks = new ORMRed(redis, task);
+
+    it('can add a task', async function(){
+      await tasks.exec.insert(99, ['test', 'w']);
+      result = await redis.hgetall('tid:99')
+      expect(result['test']).to.be.a('string');
+      expect(result['test']).to.equal('w');
+    })
+    it('can select a task', async function(){
+      await tasks.exec.select(99);
+      expect(result['test']).to.be.a('string');
+      expect(result['test']).to.equal('w');
+    })
+    it('can delete a task', async function(){
+      await tasks.exec.insert(99, ['test', 'w']);
+      await tasks.exec.delete(99);
+      resultHash = await redis.hgetall('tid:99')
+      resultSet = await redis.smembers('tids:1')
+      expect(resultHash).to.not.include({test: 'w'});
+      expect(resultSet.length).to.be.equal(0);
+        
+    })
+
+  });
+  
+  describe('Testing Redis Stream', async function(){
+
+    rstream = new ORMRed(redis, { stream: 'test', type: 'stream' });
+
+    it('should will be ok the type', async function(){
+      expect(rstream).to.not.be.null;
+    });
+    it('should will be send a msg', async function(){
+      console.log(rstream.exec)
+      await rstream.exec.insert('test', ['id', 1, 'w', '* * * * *', 'o', 'crawler']);
+      result = await redis.sendCommand( 
+        new Redis.Command('XRANGE', ['test', '-', '+'])
+      );
+      console.log(result.toString('utf8'));
+
+      expect(result[0]).to.be.equal(1);
+    });
+  })
+
+
+
     /*describe('Testing Set Type', async function(){
 
         setData = {key: 'testset',
